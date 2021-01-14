@@ -5,3 +5,6 @@ Es erwartet Daten von AndroSensor und es findet keine initiale Validierung der A
 * Linear Accelerometer (an)
 * alles andere ausgeschaltet
 
+## Usage
+
+`node index.js --input [array of input files] --output output-folder --quantiles [array of quantiles, e.g. 0.9, 0.95...]`
