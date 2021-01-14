@@ -37,10 +37,6 @@ const get = (inputFilePath) => new Promise((resolve, reject) => {
     }
     
     const interpolate = (from, to, steps) => {
-        
-        // const start = values[0]
-        // const end = values[values.length - 1]
-        // const inner = values.slice(1, values.length - 1)
         const v = [
             to[0] - from[0],
             to[1] - from[1],
@@ -149,7 +145,6 @@ const get = (inputFilePath) => new Promise((resolve, reject) => {
     })
     
     sensor.on('end', data => {
-        // fs.writeFileSync('raw.csv', JSON.stringify(samples, null, 2))
         const transformed = transform(samples)
         const { indices, interpolated } = empty(transformed)
         indices.forEach((indexPairs, i) => {
@@ -158,10 +153,8 @@ const get = (inputFilePath) => new Promise((resolve, reject) => {
                 transformed[index][4] = (index + 1) * dt
             })
         })
-        
-        resolve(transformed.map(t => t.slice(0, 4)))
-        // fs.writeFileSync(getIO().outputFilePath, JSON.stringify(transformed, null, 2))
-        // fs.writeFileSync('empties.csv', JSON.stringify(empty(transformed), null, 2))
+
+        resolve(transformed.map(t => t.slice(0, 4)).filter(t => t[0] !== null && t[0] !== undefined))
     }) 
 })
 
