@@ -23,6 +23,17 @@ const getIO = () => {
     }
 }
 
+const toCSV = (data) => {
+    let csv = ''
+
+    data.forEach(entry => {
+        csv += entry.map(s => s.toFixed(3)).join(';')
+        csv += '\n'
+    })
+
+    return csv
+}
+
 const run = async () => {
     const datasets = await parse(getIO().input)
     const data = datasets.flat(1)
@@ -44,7 +55,7 @@ const run = async () => {
     quantiles.forEach((q, i) => {
         fs.writeFileSync(`${getIO().output}/quantile${getIO().quantiles[i]}.json`, JSON.stringify(q, null, 2))
     })
-    fs.writeFileSync(`${getIO().output}/samples.json`, JSON.stringify(data, null, 2))
+    fs.writeFileSync(`${getIO().output}/samples.json`, toCSV(data))
     fs.writeFileSync(`${getIO().output}/meta.json`, JSON.stringify(meta, null, 2))
 }
 
